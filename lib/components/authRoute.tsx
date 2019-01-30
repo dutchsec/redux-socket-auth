@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, RouteProps, Redirect, Router } from 'react-router-dom';
-import { AppState, ReduxSocketAuthState, User } from '../../reducer';
+import { AppState, ReduxSocketAuthState, User } from '../reducer';
 import { connect } from 'react-redux';
 
 export interface AuthRouteProps extends RouteProps {
@@ -13,14 +13,6 @@ interface ConnectedAuthRouteProps extends AuthRouteProps {
 	isAuthenticating: boolean;
 	user: User;
 }
-
-
-const select = (state: AppState, ownProps: AuthRouteProps): ConnectedAuthRouteProps => ({
-	...ownProps,
-	isAuthenticated: state.reduxSocketAuth.isAuthenticated,
-	isAuthenticating: state.reduxSocketAuth.isAuthenticating,
-	user: state.reduxSocketAuth.user
-});
 
 class AuthRoute extends React.Component<ConnectedAuthRouteProps> {
 	render() {
@@ -41,5 +33,12 @@ class AuthRoute extends React.Component<ConnectedAuthRouteProps> {
 		);
 	}
 }
+
+const select = (state: AppState, ownProps: AuthRouteProps): ConnectedAuthRouteProps => ({
+	...ownProps,
+	isAuthenticated: state.reduxSocketAuth.isAuthenticated,
+	isAuthenticating: state.reduxSocketAuth.isAuthenticating,
+	user: state.reduxSocketAuth.user
+});
 
 export default connect(select)(AuthRoute);
