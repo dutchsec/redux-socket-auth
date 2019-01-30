@@ -48,7 +48,7 @@ include:
 }
 ```
 
-### RESUME_SESSION
+#### RESUME_SESSION
 ```js
 {
     type: 'RESUME_SESSION',
