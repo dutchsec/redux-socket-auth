@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import {
-	LOGIN,
+	LOGIN, LOGIN_FAILED,
 	LOGIN_SUCCESS,
 	LOGOUT, NO_TOKEN_FOUND,
 	RESUME_SESSION_FAILED,
@@ -59,7 +59,8 @@ export function reduxSocketAuthReducer(
 		}
 
 		case RESUME_SESSION_FAILED:
-		case NO_TOKEN_FOUND: {
+		case NO_TOKEN_FOUND:
+		case LOGIN_FAILED: {
 			return {
 				...state,
 				isAuthenticating: false,
