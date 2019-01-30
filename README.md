@@ -214,8 +214,8 @@ class LoginForm extends React.Component {
         // The user will automatically be redirected on LOGIN_SUCCESS
         // to the path you defined while configuring the middleware
 
-        promise.catch(() =>
-            this.setState({ errors: 'password incorrect' })
+        promise.catch(messageFromServer =>
+            this.setState({ errors: JSON.stringify(messageFromServer) })
         );
     }
 
