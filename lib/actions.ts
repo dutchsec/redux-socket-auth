@@ -1,5 +1,14 @@
 import { AnyAction } from 'redux';
-import { LOGIN, NO_TOKEN_FOUND, RESUME_SESSION } from './constants';
+import { LOGIN, NO_TOKEN_FOUND, RESUME_SESSION, SIGN_UP } from './constants';
+
+export function signUp(payload: any): AnyAction {
+	return {
+		type: SIGN_UP,
+		sendToServer: true,
+		promise: true,
+		payload
+	};
+}
 
 export function login(payload: any): AnyAction {
 	return {

@@ -1,3 +1,6 @@
+export const SIGN_UP = 'authentication.signUp';
+export const SIGN_UP_SUCCESS = 'authentication.signupSuccess';
+export const SIGN_UP_FAILED = 'authentication.signupFailed';
 export const LOGIN = 'authentication.login';
 export const LOGIN_SUCCESS = 'authentication.loginSuccess';
 export const LOGIN_FAILED = 'authentication.loginFailed';

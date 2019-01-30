@@ -4,7 +4,7 @@ import {
 	LOGIN_SUCCESS,
 	LOGOUT, NO_TOKEN_FOUND,
 	RESUME_SESSION_FAILED,
-	RESUME_SESSION_SUCCESS
+	RESUME_SESSION_SUCCESS, SIGN_UP, SIGN_UP_SUCCESS
 } from './constants';
 
 export interface ReduxSocketAuthState {
@@ -34,7 +34,8 @@ export function reduxSocketAuthReducer(
 	action: AnyAction
 ): ReduxSocketAuthState {
 	switch (action.type) {
-		case LOGIN: {
+		case LOGIN:
+		case SIGN_UP: {
 			return {
 				...state,
 				isAuthenticating: true
@@ -42,6 +43,7 @@ export function reduxSocketAuthReducer(
 		}
 
 		case LOGIN_SUCCESS:
+		case SIGN_UP_SUCCESS:
 		case RESUME_SESSION_SUCCESS: {
 			return {
 				...state,
