@@ -4,8 +4,9 @@ import { AppState, ReduxSocketAuthState, User } from '../reducer';
 import { connect } from 'react-redux';
 
 export interface AuthRouteProps extends RouteProps {
-	roles?: string[];
 	redirectTo: string;
+	roles?: string[];
+	rolesRedirectTo?: string;
 }
 
 interface ConnectedAuthRouteProps extends AuthRouteProps {
@@ -16,7 +17,7 @@ interface ConnectedAuthRouteProps extends AuthRouteProps {
 
 class AuthRoute extends React.Component<ConnectedAuthRouteProps> {
 	render() {
-		const { isAuthenticated, isAuthenticating, redirectTo } = this.props;
+		const { isAuthenticated, isAuthenticating, redirectTo, roles, rolesRedirectTo, user } = this.props;
 
 		if (isAuthenticating) {
 			return null;
@@ -24,6 +25,10 @@ class AuthRoute extends React.Component<ConnectedAuthRouteProps> {
 
 		if (!isAuthenticated) {
 			return <Redirect to={redirectTo} />;
+		}
+
+		if (roles && roles.indexOf(user.role) === -1) {
+			return <Redirect to={rolesRedirectTo ? rolesRedirectTo : redirectTo}/>;
 		}
 
 		return (
