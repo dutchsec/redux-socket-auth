@@ -200,9 +200,13 @@ class LoginForm extends React.Component {
         const { dispatch } = this.props;
         const { username, password } = this.state;
 
-        dispatch(login({ username, password }));
+        const promise = dispatch(login({ username, password }));
         // The user will automatically be redirected on LOGIN_SUCCESS
         // to the path you defined while configuring the middleware
+
+        promise.catch(() =>
+            this.setState({ errors: 'password incorrect' })
+        );
     }
 
     ...
