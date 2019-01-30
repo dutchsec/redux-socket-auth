@@ -1,0 +1,57 @@
+{
+  "name": "redux-socket-auth",
+  "version": "0.0.0",
+  "description": "Typescript Redux socket authentication",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "npm install --no-save redux && jest --config=jest.config.json",
+    "test:watch": "npm install --no-save redux && jest --config=jest.config.json --watch"
+  },
+  "author": "Thomas Kuipers",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.7.22",
+    "@types/jest": "^23.3.12",
+    "@types/react-redux": "^7.0.1",
+    "@types/react-router": "^4.4.3",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/react-router-redux": "^5.0.17",
+    "@types/redux": "^3.6.0",
+    "jest": "^23.6.0",
+    "npm-install-peers": "^1.2.1",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2",
+    "redux": "^4.0.1",
+    "redux-reconnecting-socket": "^0.6.5",
+    "react": "^16.4.2",
+    "react-redux": "6.0.0",
+    "react-router-dom": "4.4.0-beta.6",
+    "react-router": "4.4.0-beta.6",
+    "react-router-redux": "^5.0.0-alpha.6"
+  },
+  "peerDependencies": {
+    "redux": "^4.0.1",
+    "redux-reconnecting-socket": "^0.6.5",
+    "react": "^16.4.2",
+    "react-redux": "6.0.0",
+    "react-router-dom": "4.4.0-beta.6",
+    "react-router": "4.4.0-beta.6",
+    "react-router-redux": "^5.0.0-alpha.6"
+  },
+  "dependencies": {
+    "reconnecting-websocket": "^4.1.10"
+  },
+  "repository": "dutchsec/redux-reconnecting-socket",
+  "keywords": [
+    "redux",
+    "socket",
+    "websocket",
+    "reconnect",
+    "reconnecting",
+    "react",
+    "auth"
+  ]
+}
