@@ -1,5 +1,11 @@
 import { AnyAction } from 'redux';
-import { LOGIN, NO_TOKEN_FOUND, RESUME_SESSION, SIGN_UP } from './constants';
+import {
+	LOGIN,
+	LOGOUT,
+	NO_TOKEN_FOUND,
+	RESUME_SESSION,
+	SIGN_UP
+} from './constants';
 
 export function signUp(payload: any): AnyAction {
 	return {
@@ -16,6 +22,12 @@ export function login(payload: any): AnyAction {
 		sendToServer: true,
 		promise: true,
 		payload
+	};
+}
+
+export function logout(): AnyAction {
+	return {
+		type: LOGOUT
 	};
 }
 
