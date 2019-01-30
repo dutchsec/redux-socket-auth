@@ -65,7 +65,12 @@ include:
 {
     type: 'LOGIN_SUCCESS',
     payload: {
-        jwtToken: 'my_jwt_token'
+        jwtToken: 'my_jwt_token',
+        user: {
+            role: 'admin', // optional
+            // other properties are allowed, but not relevant to this
+            // module
+        }
     }
 }
 ```
@@ -82,7 +87,12 @@ include:
 {
     type: 'RESUME_SESSION_SUCCESS',
     payload: {
-        jwtToken: 'my_jwt_token'
+        jwtToken: 'my_jwt_token',
+        user: {
+            role: 'admin', // optional
+            // other properties are allowed, but not relevant to this
+            // module
+        }
     }
 }
 ```
