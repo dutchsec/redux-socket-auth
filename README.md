@@ -239,3 +239,22 @@ class LogoutButton extends React.Component {
     ...
 }
 ```
+
+### 7. Displaying user info
+```js
+class UserInfo extends React.Component {
+    render() {
+        const { user } = this.props;
+
+        return (
+            <p>{user.name}</p>
+        }
+    }
+}
+
+const select = (state) => ({
+    user: state.reduxSocketAuth.user
+});
+
+export default connect(select)(UserInfo);
+```
