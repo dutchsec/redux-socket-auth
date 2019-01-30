@@ -77,7 +77,7 @@ include:
 }
 ```
 
-### RESUME_SESSION_SUCCESS
+#### RESUME_SESSION_SUCCESS
 ```js
 {
     type: 'RESUME_SESSION_SUCCESS',
