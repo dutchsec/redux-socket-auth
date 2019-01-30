@@ -34,8 +34,6 @@ include:
 ### Messages from client -> to server
 
 #### LOGIN
-
-Example:
 ```js
 {
     type: 'LOGIN',
@@ -51,8 +49,6 @@ Example:
 ```
 
 ### RESUME_SESSION
-
-Example:
 ```js
 {
     type: 'RESUME_SESSION',
@@ -65,20 +61,16 @@ Example:
 ### Messages from server -> to client
 
 #### LOGIN_SUCCESS
-
-Example:
 ```js
 {
     type: 'LOGIN_SUCCESS',
     payload: {
-        jwtToken: 'my_jwt_token
+        jwtToken: 'my_jwt_token'
     }
 }
 ```
 
 #### LOGIN_FAILED
-
-Example:
 ```js
 {
     type: 'LOGIN_FAILED'
@@ -86,20 +78,16 @@ Example:
 ```
 
 ### RESUME_SESSION_SUCCESS
-
-Example:
 ```js
 {
     type: 'RESUME_SESSION_SUCCESS',
     payload: {
-        jwtToken: 'my_jwt_token
+        jwtToken: 'my_jwt_token'
     }
 }
 ```
 
 #### RESUME_SESSION_FAILED
-
-Example:
 ```js
 {
     type: 'RESUME_SESSION_FAILED'
@@ -195,7 +183,7 @@ class App extends React.Component {
 
 const select = (state) => ({
     isAuthenticating: state.reduxSocketAuth.isAuthenticating,
-	connected: state.connection.connected
+    connected: state.connection.connected
 });
 
 export default connect(select)(App);
