@@ -124,6 +124,7 @@ const store = createStore(
             reduxSocketAuth({
                 redirects: {
                     loginSuccess: '/dashboard',
+                    signUpSuccess: '/dashboard',
                     resumeSessionFailed: '/login'
                 }
             }),
@@ -199,7 +200,38 @@ const select = (state) => ({
 export default connect(select)(App);
 ```
 
-### 5. Logging in
+### 5. Signing up
+```js
+import { signUp } from 'redux-socket-auth';
+
+class SignUpForm extends React.Component {
+    ...
+
+    onSubmit() {
+        const { dispatch } = this.props;
+        const { username, password, email, name } = this.state;
+
+        const promise = dispatch(signUp({
+            username,
+            password,
+            email,
+            name
+        }));
+
+        // The user will automatically be redirected on SIGN_UP_SUCCESS
+        // to the path you defined while configuring the middleware
+
+        promise.catch(messageFromServer =>
+            this.setState({ errors: JSON.stringify(messageFromServer) })
+        );
+    }
+
+    ...
+}
+```
+
+
+### 6. Logging in
 ```js
 import { login } from 'redux-socket-auth';
 
@@ -223,7 +255,7 @@ class LoginForm extends React.Component {
 }
 ```
 
-### 6. Logging out
+### 7. Logging out
 ```js
 import { logout } from 'redux-socket-auth';
 
@@ -240,7 +272,7 @@ class LogoutButton extends React.Component {
 }
 ```
 
-### 7. Displaying user info
+### 8. Displaying user info
 ```js
 class UserInfo extends React.Component {
     render() {
