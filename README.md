@@ -41,7 +41,7 @@ include:
         // note that the payload here can be anything you like, as long
         // as the server responds with a payload like:
         // { jwtToken: 'my_jwt_token' }
-        // (more details in LOGIN_SUCCESS)
+        // (more details in LOGIN_RESPONSE)
         username: 'test',
         password: 'secret'
     }
@@ -58,12 +58,28 @@ include:
 }
 ```
 
+#### SIGN_UP
+```js
+{
+    type: 'SIGN_UP',
+    payload: {
+        // note that the payload here can be anything you like, as long
+        // as the server responds with a payload like:
+        // { jwtToken: 'my_jwt_token' }
+        // (more details in SIGN_UP_RESPONSE)
+        username: 'test',
+        password: 'secret'
+    }
+}
+```
+
 ### Messages from server -> to client
 
-#### LOGIN_SUCCESS
+#### LOGIN_RESPONSE
 ```js
 {
-    type: 'LOGIN_SUCCESS',
+    type: 'LOGIN_RESPONSE',
+    error: false, // use true if it failed
     payload: {
         jwtToken: 'my_jwt_token',
         user: {
@@ -75,17 +91,11 @@ include:
 }
 ```
 
-#### LOGIN_FAILED
+#### RESUME_SESSION_RESPONSE
 ```js
 {
-    type: 'LOGIN_FAILED'
-}
-```
-
-#### RESUME_SESSION_SUCCESS
-```js
-{
-    type: 'RESUME_SESSION_SUCCESS',
+    type: 'RESUME_SESSION_RESPONSE',
+    error: false, // use true if it failed
     payload: {
         jwtToken: 'my_jwt_token',
         user: {
@@ -97,12 +107,25 @@ include:
 }
 ```
 
-#### RESUME_SESSION_FAILED
+#### SIGN_UP_RESPONSE
 ```js
 {
-    type: 'RESUME_SESSION_FAILED'
+    type: 'SIGN_UP_RESPONSE',
+    error: false, // use true if it failed
+    payload: {
+        jwtToken: 'my_jwt_token',
+        user: {
+            role: 'admin', // optional
+            // other properties are allowed, but not relevant to this
+            // module
+        }
+    }
 }
 ```
+
+You might have noticed that `LOGIN_RESPONSE`, `RESUME_SESSION_RESPONSE`
+and `SIGN_UP_RESPONSE` have identical message structures. This is
+correct.
 
 ## Clientside installation
 

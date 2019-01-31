@@ -1,6 +1,6 @@
 {
   "name": "redux-socket-auth",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Typescript Redux socket authentication",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,7 +28,7 @@
     "react-router-dom": "4.4.0-beta.6",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^4.0.1",
-    "redux-reconnecting-socket": "^0.6.5",
+    "redux-reconnecting-socket": "^1.0.1",
     "ts-jest": "^23.10.5",
     "typescript": "^3.2.2"
   },
@@ -39,12 +39,12 @@
     "react-router-dom": "4.4.0-beta.6",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^4.0.1",
-    "redux-reconnecting-socket": "^0.6.5"
+    "redux-reconnecting-socket": "^1.0.1"
   },
   "dependencies": {
     "reconnecting-websocket": "^4.1.10"
   },
-  "repository": "dutchsec/redux-reconnecting-socket",
+  "repository": "dutchsec/redux-socket-auth",
   "keywords": [
     "redux",
     "socket",

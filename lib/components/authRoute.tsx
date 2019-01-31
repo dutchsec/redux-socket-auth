@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Route, RouteProps, Redirect, Router } from 'react-router-dom';
-import { AppState, ReduxSocketAuthState, User } from '../reducer';
+import { Route, RouteProps, Redirect } from 'react-router-dom';
+import { AppState, User } from '../reducer';
 import { connect } from 'react-redux';
 
 export interface AuthRouteProps extends RouteProps {

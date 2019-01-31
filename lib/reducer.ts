@@ -1,10 +1,8 @@
 import { AnyAction } from 'redux';
 import {
-	LOGIN, LOGIN_FAILED,
-	LOGIN_SUCCESS,
-	LOGOUT, NO_TOKEN_FOUND,
-	RESUME_SESSION_FAILED,
-	RESUME_SESSION_SUCCESS, SIGN_UP, SIGN_UP_SUCCESS
+	LOGIN, LOGIN_RESPONSE,
+	LOGOUT, NO_TOKEN_FOUND, RESUME_SESSION_RESPONSE,
+	SIGN_UP, SIGN_UP_RESPONSE
 } from './constants';
 
 export interface ReduxSocketAuthState {
@@ -42,9 +40,16 @@ export function reduxSocketAuthReducer(
 			};
 		}
 
-		case LOGIN_SUCCESS:
-		case SIGN_UP_SUCCESS:
-		case RESUME_SESSION_SUCCESS: {
+		case LOGIN_RESPONSE:
+		case SIGN_UP_RESPONSE:
+		case RESUME_SESSION_RESPONSE: {
+			if (action.error) {
+				return {
+					...state,
+					isAuthenticating: false
+				}
+			}
+
 			return {
 				...state,
 				isAuthenticated: true,
@@ -60,9 +65,7 @@ export function reduxSocketAuthReducer(
 			};
 		}
 
-		case RESUME_SESSION_FAILED:
-		case NO_TOKEN_FOUND:
-		case LOGIN_FAILED: {
+		case NO_TOKEN_FOUND: {
 			return {
 				...state,
 				isAuthenticating: false,

@@ -1,12 +1,9 @@
 import { Middleware, AnyAction } from 'redux';
 import {
-	LOGIN,
-	LOGIN_FAILED,
-	LOGIN_SUCCESS, LOGOUT,
-	NO_TOKEN_FOUND,
-	RESUME_SESSION,
-	RESUME_SESSION_FAILED,
-	RESUME_SESSION_SUCCESS, SIGN_UP_SUCCESS
+	LOGIN_RESPONSE,
+	LOGOUT,
+	RESUME_SESSION_RESPONSE,
+	SIGN_UP_RESPONSE
 } from './constants';
 import {
 	SOCKET_OPENED
@@ -60,22 +57,28 @@ export function reduxSocketAuth(config: ReduxSocketAuthConfig = defaultReduxSock
 					break;
 				}
 
-				case LOGIN_SUCCESS: {
-					localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
-					dispatch(push(config.redirects.loginSuccess));
+				case LOGIN_RESPONSE: {
+					if (!action.error) {
+						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
+						dispatch(push(config.redirects.loginSuccess));
+					}
 
 					break;
 				}
 
-				case RESUME_SESSION_SUCCESS: {
-					localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
+				case RESUME_SESSION_RESPONSE: {
+					if (!action.error) {
+						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
+					}
 
 					break;
 				}
 
-				case SIGN_UP_SUCCESS: {
-					localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
-					dispatch(push(config.redirects.signUpSuccess));
+				case SIGN_UP_RESPONSE: {
+					if (!action.error) {
+						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
+						dispatch(push(config.redirects.signUpSuccess));
+					}
 
 					break;
 				}
