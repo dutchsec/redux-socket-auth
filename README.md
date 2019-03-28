@@ -147,8 +147,7 @@ const store = createStore(
             reduxSocketAuth({
                 redirects: {
                     loginSuccess: '/dashboard',
-                    signUpSuccess: '/dashboard',
-                    resumeSessionFailed: '/login'
+                    signUpSuccess: '/dashboard'
                 }
             }),
             reduxReconnectingSocket(),

@@ -15,15 +15,13 @@ export interface ReduxSocketAuthConfig {
 	redirects?: {
 		loginSuccess?: string;
 		signUpSuccess?: string;
-		resumeSessionFailed?: string;
 	}
 }
 
 export const defaultReduxSocketAuthConfig: ReduxSocketAuthConfig = {
 	redirects: {
 		loginSuccess: '/',
-		signUpSuccess: '/',
-		resumeSessionFailed: '/login'
+		signUpSuccess: '/'
 	}
 };
 
@@ -51,7 +49,6 @@ export function reduxSocketAuth(config: ReduxSocketAuthConfig = defaultReduxSock
 						dispatch(resumeSession(jwtToken));
 					} else {
 						dispatch(noTokenFound());
-						dispatch(push(config.redirects.resumeSessionFailed));
 					}
 
 					break;
