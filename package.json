@@ -1,6 +1,6 @@
 {
   "name": "redux-socket-auth",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "Typescript Redux socket authentication",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,9 +35,7 @@
   "peerDependencies": {
     "react": "^16.4.2",
     "react-redux": "6.0.0",
-    "react-router": "4.4.0-beta.6",
     "react-router-dom": "4.4.0-beta.6",
-    "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^4.0.1",
     "redux-reconnecting-socket": "^1.0.1"
   },

@@ -9,35 +9,10 @@ import {
 	SOCKET_OPENED
 } from 'redux-reconnecting-socket';
 import { noTokenFound, resumeSession } from './actions';
-import { push } from 'react-router-redux';
-
-export interface ReduxSocketAuthConfig {
-	redirects?: {
-		loginSuccess?: string;
-		signUpSuccess?: string;
-	}
-}
-
-export const defaultReduxSocketAuthConfig: ReduxSocketAuthConfig = {
-	redirects: {
-		loginSuccess: '/',
-		signUpSuccess: '/'
-	}
-};
 
 const localStorageTokenKey = 'jwtToken';
 
-export function reduxSocketAuth(config: ReduxSocketAuthConfig = defaultReduxSocketAuthConfig): Middleware {
-	config = {
-		...defaultReduxSocketAuthConfig,
-		...config
-	};
-
-	config.redirects = {
-		...defaultReduxSocketAuthConfig.redirects,
-		...config.redirects,
-	};
-
+export function reduxSocketAuth(): Middleware {
 	return ({ dispatch }) => {
 		return next => action => {
 
@@ -57,7 +32,6 @@ export function reduxSocketAuth(config: ReduxSocketAuthConfig = defaultReduxSock
 				case LOGIN_RESPONSE: {
 					if (!action.error) {
 						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
-						dispatch(push(config.redirects.loginSuccess));
 					}
 
 					break;
@@ -74,7 +48,6 @@ export function reduxSocketAuth(config: ReduxSocketAuthConfig = defaultReduxSock
 				case SIGN_UP_RESPONSE: {
 					if (!action.error) {
 						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
-						dispatch(push(config.redirects.signUpSuccess));
 					}
 
 					break;

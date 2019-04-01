@@ -23,9 +23,7 @@ There are a number of peer dependencies that your project needs to
 include:
 * react
 * react-redux
-* react-router
 * react-router-dom
-* react-router-redux
 * redux
 * redux-reconnecting-socket
 
@@ -144,12 +142,7 @@ const store = createStore(
     composeEnhancer(
         applyMiddleware(
             routerMiddleware(history),
-            reduxSocketAuth({
-                redirects: {
-                    loginSuccess: '/dashboard',
-                    signUpSuccess: '/dashboard'
-                }
-            }),
+            reduxSocketAuth(),
             reduxReconnectingSocket(),
         ),
     )
@@ -240,8 +233,10 @@ class SignUpForm extends React.Component {
             name
         }));
 
-        // The user will automatically be redirected on SIGN_UP_SUCCESS
-        // to the path you defined while configuring the middleware
+        promise.then(() => {
+            // Redirect the user after successful signup
+            history.push('/dashboard');
+        });
 
         promise.catch(messageFromServer =>
             this.setState({ errors: JSON.stringify(messageFromServer) })
@@ -265,8 +260,11 @@ class LoginForm extends React.Component {
         const { username, password } = this.state;
 
         const promise = dispatch(login({ username, password }));
-        // The user will automatically be redirected on LOGIN_SUCCESS
-        // to the path you defined while configuring the middleware
+
+        promise.then(() => {
+            // Redirect the user after successful login
+            history.push('/dashboard');
+        });
 
         promise.catch(messageFromServer =>
             this.setState({ errors: JSON.stringify(messageFromServer) })

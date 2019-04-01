@@ -32,13 +32,6 @@ export function reduxSocketAuthReducer(
 	action: AnyAction
 ): ReduxSocketAuthState {
 	switch (action.type) {
-		case LOGIN: {
-			return {
-				...state,
-				isAuthenticating: true
-			};
-		}
-
 		case LOGIN_RESPONSE:
 		case SIGN_UP_RESPONSE:
 		case RESUME_SESSION_RESPONSE: {
