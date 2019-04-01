@@ -32,8 +32,7 @@ export function reduxSocketAuthReducer(
 	action: AnyAction
 ): ReduxSocketAuthState {
 	switch (action.type) {
-		case LOGIN:
-		case SIGN_UP: {
+		case LOGIN: {
 			return {
 				...state,
 				isAuthenticating: true

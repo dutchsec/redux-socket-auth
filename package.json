@@ -1,6 +1,6 @@
 {
   "name": "redux-socket-auth",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Typescript Redux socket authentication",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
