@@ -65,10 +65,14 @@ export function reduxSocketAuthReducer(
 		}
 
 		case UPDATE_USER_RESPONSE: {
-			return {
-				...state,
-				user: action.payload.user
-			};
+			if (action.payload && action.payload.user) {
+				return {
+					...state,
+					user: action.payload.user
+				};
+			}
+
+			return state;
 		}
 
 		default: {
