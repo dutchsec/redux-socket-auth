@@ -1,7 +1,8 @@
 import { AnyAction } from 'redux';
 import {
+	GET_USER_RESPONSE,
 	LOGIN, LOGIN_RESPONSE,
-	LOGOUT, NO_TOKEN_FOUND, RESUME_SESSION_RESPONSE,
+	LOGOUT, NO_TOKEN_FOUND, RESUME_SESSION_RESPONSE, SET_CONFIRM_EMAIL_TOKEN,
 	SIGN_UP, SIGN_UP_RESPONSE, UPDATE_USER_RESPONSE
 } from './constants';
 
@@ -9,6 +10,7 @@ export interface ReduxSocketAuthState {
 	isAuthenticating: boolean;
 	isAuthenticated: boolean;
 	user: User | null;
+	confirmEmailToken: string;
 }
 
 export interface AppState {
@@ -24,7 +26,8 @@ export interface User {
 export const defaultReduxSocketAuthState: ReduxSocketAuthState = {
 	isAuthenticating: true,
 	isAuthenticated: false,
-	user: null
+	user: null,
+	confirmEmailToken: null
 };
 
 export function reduxSocketAuthReducer(
@@ -65,6 +68,24 @@ export function reduxSocketAuthReducer(
 		}
 
 		case UPDATE_USER_RESPONSE: {
+			if (action.payload && action.payload.user) {
+				return {
+					...state,
+					user: action.payload.user
+				};
+			}
+
+			return state;
+		}
+
+		case SET_CONFIRM_EMAIL_TOKEN: {
+			return {
+				...state,
+				confirmEmailToken: action.payload.token
+			};
+		}
+
+		case GET_USER_RESPONSE: {
 			if (action.payload && action.payload.user) {
 				return {
 					...state,

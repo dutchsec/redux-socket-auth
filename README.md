@@ -310,3 +310,31 @@ const select = (state) => ({
 
 export default connect(select)(UserInfo);
 ```
+
+### 9. Updating the user
+```js
+import { updateUser } from 'redux-socket-auth';
+
+dispatch(updateUser({ email: 'test@test.com', name: 'test' }));
+```
+
+### 10. Email confirmation
+Typically you might send a confirmation email to a new user after they
+sign up. The confirmation email contains a token.
+
+Step 1: Get the token from the URL and save it in the store
+```js
+import { setConfirmEmailToken } from 'redux-socket-auth';
+
+dispatch(setConfirmEmailToken(urlParams.get('token')));
+```
+
+Step 2: When the user logs in (or resumes his session), the CONFIRM_EMAIL
+action with the token will automatically be sent to the server.
+
+### 11. Resending verification email
+```js
+import { verifyEmail } from 'redux-socket-auth';
+
+dispatch(verifyEmail());
+```

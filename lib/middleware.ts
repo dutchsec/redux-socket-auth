@@ -8,12 +8,18 @@ import {
 import {
 	SOCKET_OPENED
 } from 'redux-reconnecting-socket';
-import { noTokenFound, resumeSession } from './actions';
+import {
+	confirmEmail,
+	noTokenFound,
+	resumeSession,
+	setConfirmEmailToken
+} from './actions';
+import { AppState } from './reducer';
 
 const localStorageTokenKey = 'jwtToken';
 
 export function reduxSocketAuth(): Middleware {
-	return ({ dispatch }) => {
+	return ({ dispatch, getState }) => {
 		return next => action => {
 
 			switch (action.type) {
@@ -29,24 +35,17 @@ export function reduxSocketAuth(): Middleware {
 					break;
 				}
 
-				case LOGIN_RESPONSE: {
-					if (!action.error) {
-						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
-					}
-
-					break;
-				}
-
-				case RESUME_SESSION_RESPONSE: {
-					if (!action.error) {
-						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
-					}
-
-					break;
-				}
-
+				case LOGIN_RESPONSE:
+				case RESUME_SESSION_RESPONSE:
 				case SIGN_UP_RESPONSE: {
 					if (!action.error) {
+						const state: AppState = getState();
+
+						if (state.reduxSocketAuth.confirmEmailToken) {
+							dispatch(confirmEmail(state.reduxSocketAuth.confirmEmailToken));
+							dispatch(setConfirmEmailToken(null));
+						}
+
 						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
 					}
 
