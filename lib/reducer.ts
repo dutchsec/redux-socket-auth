@@ -2,7 +2,7 @@ import { AnyAction } from 'redux';
 import {
 	LOGIN, LOGIN_RESPONSE,
 	LOGOUT, NO_TOKEN_FOUND, RESUME_SESSION_RESPONSE,
-	SIGN_UP, SIGN_UP_RESPONSE
+	SIGN_UP, SIGN_UP_RESPONSE, UPDATE_USER_RESPONSE
 } from './constants';
 
 export interface ReduxSocketAuthState {
@@ -61,6 +61,13 @@ export function reduxSocketAuthReducer(
 			return {
 				...state,
 				isAuthenticating: false,
+			};
+		}
+
+		case UPDATE_USER_RESPONSE: {
+			return {
+				...state,
+				user: action.payload.user
 			};
 		}
 

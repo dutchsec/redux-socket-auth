@@ -4,8 +4,9 @@ import {
 	LOGOUT,
 	NO_TOKEN_FOUND,
 	RESUME_SESSION,
-	SIGN_UP
+	SIGN_UP, UPDATE_USER
 } from './constants';
+import { User } from './reducer';
 
 export function signUp(payload: any): AnyAction {
 	return {
@@ -39,7 +40,7 @@ export function resumeSession(jwtToken: string) {
 		payload: {
 			jwtToken
 		}
-	}
+	};
 }
 
 export function noTokenFound() {
@@ -48,3 +49,13 @@ export function noTokenFound() {
 	};
 }
 
+export function updateUser(user: User) {
+	return {
+		type: UPDATE_USER,
+		sendToServer: true,
+		promise: true,
+		payload: {
+			user
+		}
+	};
+}
