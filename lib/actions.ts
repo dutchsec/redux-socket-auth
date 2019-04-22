@@ -5,7 +5,7 @@ import {
 	LOGOUT,
 	NO_TOKEN_FOUND,
 	RESUME_SESSION, SET_CONFIRM_EMAIL_TOKEN,
-	SIGN_UP, UPDATE_USER, VERIFY_EMAIL
+	SIGN_UP, TOKEN_RECEIVED, UPDATE_USER, VERIFY_EMAIL
 } from './constants';
 
 export function signUp(payload: any): AnyAction {
@@ -32,11 +32,12 @@ export function logout(): AnyAction {
 	};
 }
 
-export function resumeSession(jwtToken: string) {
+export function resumeSession(jwtToken: string, server?: string) {
 	return {
 		type: RESUME_SESSION,
 		sendToServer: true,
 		promise: true,
+		server,
 		payload: {
 			jwtToken
 		}
@@ -99,4 +100,13 @@ export function getUser() {
 		promise: true,
 		payload: {}
 	}
+}
+
+export function tokenReceived(token: string) {
+	return {
+		type: TOKEN_RECEIVED,
+		payload: {
+			token
+		}
+	};
 }

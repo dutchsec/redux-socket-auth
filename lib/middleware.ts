@@ -1,9 +1,11 @@
 import { Middleware, AnyAction } from 'redux';
 import {
+	CONFIRM_EMAIL, GET_USER,
+	LOGIN,
 	LOGIN_RESPONSE,
-	LOGOUT,
-	RESUME_SESSION_RESPONSE,
-	SIGN_UP_RESPONSE
+	LOGOUT, RESUME_SESSION,
+	RESUME_SESSION_RESPONSE, SIGN_UP,
+	SIGN_UP_RESPONSE, UPDATE_USER, VERIFY_EMAIL
 } from './constants';
 import {
 	SOCKET_OPENED
@@ -12,24 +14,51 @@ import {
 	confirmEmail,
 	noTokenFound,
 	resumeSession,
-	setConfirmEmailToken
+	setConfirmEmailToken, tokenReceived
 } from './actions';
 import { AppState } from './reducer';
 
 const localStorageTokenKey = 'jwtToken';
 
-export function reduxSocketAuth(): Middleware {
+export interface ReduxSocketAuthConfig {
+	serverName: string;
+}
+
+const defaultConfig: ReduxSocketAuthConfig = {
+	serverName: 'default'
+};
+
+export function reduxSocketAuth(config: ReduxSocketAuthConfig = defaultConfig): Middleware {
 	return ({ dispatch, getState }) => {
 		return next => action => {
-
 			switch (action.type) {
-				case SOCKET_OPENED: {
-					const jwtToken = localStorage.getItem(localStorageTokenKey);
+				case SIGN_UP:
+				case LOGIN:
+				case UPDATE_USER:
+				case CONFIRM_EMAIL:
+				case VERIFY_EMAIL:
+				case GET_USER: {
+					action.server = config.serverName;
+					break;
+				}
 
-					if (jwtToken) {
-						dispatch(resumeSession(jwtToken));
-					} else {
-						dispatch(noTokenFound());
+				case RESUME_SESSION: {
+					if (!action.server) {
+						action.server = config.serverName;
+					}
+
+					break;
+				}
+
+				case SOCKET_OPENED: {
+					if (action.server === config.serverName) {
+						const jwtToken = localStorage.getItem(localStorageTokenKey);
+
+						if (jwtToken) {
+							dispatch(resumeSession(jwtToken));
+						} else {
+							dispatch(noTokenFound());
+						}
 					}
 
 					break;
@@ -38,7 +67,7 @@ export function reduxSocketAuth(): Middleware {
 				case LOGIN_RESPONSE:
 				case RESUME_SESSION_RESPONSE:
 				case SIGN_UP_RESPONSE: {
-					if (!action.error) {
+					if (action.server === config.serverName && !action.error) {
 						const state: AppState = getState();
 
 						if (state.reduxSocketAuth.confirmEmailToken) {
@@ -47,6 +76,8 @@ export function reduxSocketAuth(): Middleware {
 						}
 
 						localStorage.setItem(localStorageTokenKey, action.payload.jwtToken);
+
+						dispatch(tokenReceived(action.payload.jwtToken));
 					}
 
 					break;
